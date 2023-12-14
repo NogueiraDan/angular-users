@@ -1,0 +1,34 @@
+<div *ngIf="users && users.length > 0; else noUsers">
+  <div *ngFor="let user of users; let i = index" class="userWrapper">
+    <div>
+      <span *ngIf="editingIndex !== i">
+        Nome: {{ user.name }}<br>
+        Idade: {{ user.age }}<br>
+        Telefone: {{ user.phone }}<br>
+        Endereço: {{ user.address }}
+      </span>
+      <div *ngIf="editingIndex === i">
+        <label for="name">Nome:</label>
+        <input type="text" [(ngModel)]="user.name" id="name" name="name" />
+        <br>
+        <label for="age">Idade:</label>
+        <input type="number" [(ngModel)]="user.age" id="age" name="age" />
+        <br>
+        <label for="phone">Telefone:</label>
+        <input type="text" [(ngModel)]="user.phone" id="phone" name="phone" />
+        <br>
+        <label for="address">Endereço:</label>
+        <input type="text" [(ngModel)]="user.address" id="address" name="address" />
+        <br/>
+      </div>
+      <button (click)="editUser(i)" *ngIf="editingIndex !== i">Editar</button>
+      <button (click)="updateUser(i)" *ngIf="editingIndex === i">Salvar</button>
+      <button (click)="cancelEdit()" *ngIf="editingIndex === i">Cancelar</button>
+      <button (click)="deleteUser(i)">Deletar</button>
+    </div>
+  </div>
+</div>
+
+<ng-template #noUsers>
+  <h1>Nenhum usuário encontrado</h1>
+</ng-template>
